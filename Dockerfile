@@ -21,6 +21,9 @@ RUN wget https://github.com/ThinkUpLLC/ThinkUp/releases/download/v2.0-beta.10/th
 
 RUN chown -R www-data /var/www/html/data/
 
+# Fix obnoxious output by apache2
+RUN echo "ServerName localhost" | tee /etc/apache2/conf-available/fqdn.conf && a2enconf fqdn
+
 EXPOSE 80
 
 CMD /usr/sbin/apache2ctl -D FOREGROUND
